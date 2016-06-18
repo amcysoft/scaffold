@@ -10,7 +10,7 @@ Hi, this is a scaffold generator for Laravel 5.2 with bootstrap 3 template.
 ### Step 1: Install Through Composer
 
 ```
-composer require 'amcysoft/scaffold'
+composer require 'amcysoft/scaffold' --dev
 ```
 
 ### Step 2: Add the Service Provider

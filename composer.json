@@ -20,5 +20,6 @@
             "email": "raheel@amcysoft.com",
             "homepage": "https://www.amcysoft.com"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
