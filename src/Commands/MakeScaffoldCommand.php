@@ -82,18 +82,18 @@ class MakeScaffoldCommand extends Command
         $this->info("Generating Views ...");
         $this->generateViews($attributes);
 
-        $this->info("Adding Route ...");
+        $this->info("Updating Route ...");
         $route = "\nRoute::resource('".$this->models."', '".$this->Models."Controller');";
         file_put_contents('app/Http/routes.php', $route, FILE_APPEND | LOCK_EX);
 
         $this->info("Running Migration ...");
         \Artisan::call('migrate');
 
-        $this->info("Running Auto load ...");
-        exec('composer dump-autoload');
-
         $this->info("Seeding Data ...");
         $this->seedData($attributes);
+
+        $this->info("Running Auto load ...");
+        exec('composer dump-autoload');
 
         $this->info("Running Seeds ...");
         \Artisan::call('db:seed', [
@@ -170,6 +170,7 @@ class MakeScaffoldCommand extends Command
         $stub = str_replace('{{schema}}', $this->schema, $stub);
 
         file_put_contents('database/migrations/' . date('Y_m_d_His') . '_create_' .$this->models.'_table.php', $stub);
+        $this->info('Generated Schema: database/migrations/' . date('Y_m_d_His') . '_create_' .$this->models.'_table.php');
     }
 
     private function generateController()
@@ -177,6 +178,7 @@ class MakeScaffoldCommand extends Command
         $stub = file_get_contents($this->path . 'ControllerStub.php');
         $stub = $this->replaceStub($stub);
         file_put_contents('app/Http/Controllers/' . $this->Models.'Controller.php', $stub);
+        $this->info('Generated Controller: app/Http/Controllers/' . $this->Models.'Controller.php');
     }
 
     private function generateModel($attributes)
@@ -185,6 +187,7 @@ class MakeScaffoldCommand extends Command
         $stub = str_replace('{{capSingle}}', $this->Model, $stub);
         $stub = str_replace('{{field_names}}', $this->field_names, $stub);
         file_put_contents('app/'.$this->Model.'.php', $stub);
+        $this->info('Generated Model: app/'.$this->Model.'.php');
     }
 
     private function generateViews($attributes)
@@ -195,26 +198,31 @@ class MakeScaffoldCommand extends Command
         $stub = file_get_contents($this->path . 'viewsStub/create.blade.php');
         $stub = $this->replaceStub($stub);
         file_put_contents('resources/views/' . $this->models . '/create.blade.php', $stub);
+        $this->info('Generated View: resources/views/' . $this->models . '/create.blade.php');
 
         $stub = file_get_contents($this->path . 'viewsStub/edit.blade.php');
         $stub = $this->replaceStub($stub);
         file_put_contents('resources/views/' . $this->models . '/edit.blade.php', $stub);
+        $this->info('Generated View: resources/views/' . $this->models . '/edit.blade.php');
 
         $stub = file_get_contents($this->path . 'viewsStub/form.blade.php');
         $stub = $this->replaceStub($stub);
         $stub = $this->replaceFormStub($stub, $attributes);
         file_put_contents('resources/views/' . $this->models . '/form.blade.php', $stub);
+        $this->info('Generated View: resources/views/' . $this->models . '/form.blade.php');
 
         $stub = file_get_contents($this->path . 'viewsStub/index.blade.php');
         $stub = $this->replaceStub($stub);
         $stub = str_replace('{{table_header}}', $this->table_header, $stub);
         $stub = str_replace('{{table_data}}', $this->table_data, $stub);
         file_put_contents('resources/views/' . $this->models . '/index.blade.php', $stub);
+        $this->info('Generated View: resources/views/' . $this->models . '/index.blade.php');
 
         $stub = file_get_contents($this->path . 'viewsStub/show.blade.php');
         $stub = $this->replaceStub($stub);
         $stub = str_replace('{{details}}', $this->details, $stub);
         file_put_contents('resources/views/' . $this->models . '/show.blade.php', $stub);
+        $this->info('Generated View: resources/views/' . $this->models . '/show.blade.php');
     }
 
     private function seedData($attributes)
@@ -224,5 +232,6 @@ class MakeScaffoldCommand extends Command
         $stub = str_replace('{{capPlural}}', $this->Models, $stub);
         $stub = str_replace('{{seeder_data}}', $this->seeder_data, $stub);
         file_put_contents('database/seeds/'.$this->Models.'TableSeeder.php', $stub);
+        $this->info('Generated Seed: database/seeds/'.$this->Models.'TableSeeder.php');
     }
 }
