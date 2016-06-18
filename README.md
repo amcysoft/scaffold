@@ -10,7 +10,7 @@ Hi, this is a scaffold generator for Laravel 5.2 with bootstrap 3 template.
 ### Step 1: Install Through Composer
 
 ```
-composer require 'amcysoft/scaffold' --dev
+composer require 'amcysoft/scaffold' "@dev"
 ```
 
 ### Step 2: Add the Service Provider
@@ -18,18 +18,23 @@ composer require 'amcysoft/scaffold' --dev
 Open `config/app.php` and the following to your **providers** array, add:
 
 ```
-"Amcysoft\Scaffold\ScaffoldServiceProvider"
+Amcysoft\Scaffold\ScaffoldServiceProvider::class,
 ```
 
 ### Step 3: Run Artisan!
 
 You're now able to run artisan command. Run `php artisan` from the console, and you'll see the new commands `make:scaffold`.
+But before doing this, run the following command to make the setup.
+
+```
+php artisan make:auth
+```
 
 ## Examples
 
 
 ```
-php artisan make:scaffold Article --schema="title:string description:text"
+php artisan make:scaffold Article title:string description:text
 ```
 This command will generate:
 

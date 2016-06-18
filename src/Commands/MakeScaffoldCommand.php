@@ -43,7 +43,7 @@ class MakeScaffoldCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->path = 'packages/amcysoft/scaffold/src/';
+        $this->path = __DIR__.'/../';
 
         $this->Model = '';
         $this->model = '';
