@@ -96,9 +96,7 @@ class MakeScaffoldCommand extends Command
         exec('composer dump-autoload');
 
         $this->info("Running Seeds ...");
-        \Artisan::call('db:seed', [
-            '--class' => $this->Models.'TableSeeder'
-        ]);
+        exec('php artisan db:seed --class='.$this->Models.'TableSeeder');
 
         $this->info("Scaffolding Complete.");
     }
