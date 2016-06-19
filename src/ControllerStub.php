@@ -38,7 +38,7 @@ class {{capPlural}}Controller extends Controller
     public function store(Request $request)
     {
         {{capSingle}}::create($request->all());
-        flash()->success('{{capSingle}} has been created successfully.');
+        flash()->success(trans('scaffold::messages.create_success', '{{capSingle}}'));
         return redirect('{{smallPlural}}');
     }
 
@@ -77,7 +77,7 @@ class {{capPlural}}Controller extends Controller
     {
         ${{smallSingle}} = {{capSingle}}::findOrFail($id);
         ${{smallSingle}}->update($request->all());
-        flash()->success('{{capSingle}} has been updated successfully.');
+        flash()->success(trans('scaffold::messages.update_success', '{{capSingle}}'));
         return redirect('{{smallPlural}}');
     }
 
@@ -91,7 +91,7 @@ class {{capPlural}}Controller extends Controller
     {
         ${{smallSingle}} = {{capSingle}}::findOrFail($id);
         ${{smallSingle}}->delete();
-        flash()->success('{{capSingle}} has been deleted successfully.');
+        flash()->success(trans('scaffold::messages.delete_success', '{{capSingle}}'));
         return redirect('{{smallPlural}}');
     }
 }
