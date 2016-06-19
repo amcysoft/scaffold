@@ -10,6 +10,7 @@ class ScaffoldServiceProvider extends ServiceProvider
         'Amcysoft\Scaffold\Commands\MakeScaffoldCommand',
         'Amcysoft\Scaffold\Commands\RemoveScaffoldCommand'
     ];
+
     /**
      * Bootstrap any application services.
      *
@@ -17,7 +18,11 @@ class ScaffoldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'scaffold');
+
+        $this->publishes([
+            __DIR__.'/../lang' => resource_path('lang/vendor/scaffold'),
+        ]);
     }
 
     /**
